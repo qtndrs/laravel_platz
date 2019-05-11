@@ -10,14 +10,13 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
+View::composer('categories.index', function($view){
+  $view->with('categories', App\Http\Models\Categorie::all());
 });
-
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });
 
-Route::get('/test/', 'testController@index')->name('test');
+Route::get('/', 'RessourceController@index')->name('templates/homepage');
+Route::resource('ressources', 'RessourceController');
